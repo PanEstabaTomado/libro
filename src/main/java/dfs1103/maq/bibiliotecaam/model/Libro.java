@@ -33,6 +33,6 @@ public class Libro {
     private BigDecimal precio;
 
     @Column(nullable = true, precision = 10)
-    private Integer id_dona;
+    private Long id_dona;
 
 }
