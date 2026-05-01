@@ -23,7 +23,7 @@ public class Libro {
     @Column(nullable = false, length = 20)
     private String titulo;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 50)
     private String autor;
 
     @Column(nullable = false)
