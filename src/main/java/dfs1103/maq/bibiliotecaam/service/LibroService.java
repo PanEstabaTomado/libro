@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class LibroService {
     private final LibroRepository libroRepository;
 
-    private LibroResponseDTO mapToDTO(Libro libro){
+    private LibroResponseDTO mapToDTO(Libro libro) {
         return new LibroResponseDTO(
                 libro.getId_libro(),
                 libro.getIsbn(),
@@ -27,12 +27,23 @@ public class LibroService {
         );
     }
 
-    public List<LibroResponseDTO> listarTodos(){
+    public List<LibroResponseDTO> listarTodos() {
         return libroRepository.findAll()
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<LibroRequestDTO> listarPorTitulo(String titulo) { return libroRepository.findByTitulo(titulo)}
+    public Optional<LibroResponseDTO> listarPorTitulo(String titulo) {
+        return libroRepository.findByTitulo(titulo)
+                .stream().map(this::mapToDTO)
+                .findFirst();
+    }
+
+    public List<LibroResponseDTO> listaPorAutor(String autor){
+        return libroRepository.findByAutor(autor)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
 }
