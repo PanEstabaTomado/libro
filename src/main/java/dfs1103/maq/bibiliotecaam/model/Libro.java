@@ -27,7 +27,11 @@ public class Libro {
     @Column(nullable = false, length = 30)
     private String autor;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = true, precision = 7)
     private BigDecimal precio;
+
+    @OneToOne
+    @JoinColumn(name = "donacion")
+    private BigDecimal id_dona;
 
 }
