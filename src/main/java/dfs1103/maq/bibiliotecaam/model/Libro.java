@@ -31,7 +31,7 @@ public class Libro {
     private BigDecimal precio;
 
     @OneToOne
-    @JoinColumn(name = "donacion")
-    private BigDecimal id_dona;
+    @JoinColumn(name = "id_dona", nullable = true)
+    private Donacion donacion;
 
 }
