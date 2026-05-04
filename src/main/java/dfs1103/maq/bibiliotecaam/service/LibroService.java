@@ -9,6 +9,7 @@ import dfs1103.maq.bibiliotecaam.repository.LibroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class LibroService {
                 libro.getTitulo(),
                 libro.getAutor(),
                 libro.getPrecio(),
+                libro.getFechaPublicacion(),
                 libro.getDonacion().getNumrun_dona()
         );
     }
@@ -78,6 +80,7 @@ public class LibroService {
                 doto.getTitulo(),
                 doto.getAutor(),
                 doto.getPrecio(),
+                doto.getFechaPublicacion(),
                 donacion
         );
         return mapToDOTO(libroRepository.save(libro));
@@ -96,6 +99,7 @@ public class LibroService {
             existente.setTitulo(doto.getTitulo());
             existente.setAutor(doto.getAutor());
             existente.setPrecio(doto.getPrecio());
+            existente.setFechaPublicacion(doto.getFechaPublicacion());
             existente.setDonacion(donacion);
             return mapToDOTO(libroRepository.save(existente));
         });
@@ -138,4 +142,13 @@ public class LibroService {
                 .map(this::mapToDOTO)
                 .collect(Collectors.toList());
     }
+
+    /*
+    * * ESTO ES PARA BUSCAR POR FECHA
+     */
+    public List<LibroResponseDTO> buscarPorFecha(LocalDate fecha){
+        return libroRepository.findLibroPorFecha(fecha)
+                .stream()
+                .map(this::mapToDOTO)
+                .collect(Collectors.toList());
 }

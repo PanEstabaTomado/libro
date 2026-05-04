@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -29,6 +30,9 @@ public class Libro {
 
     @Column(nullable = true, precision = 7)
     private BigDecimal precio;
+
+    @Column(nullable = false)
+    private LocalDate fechaPublicacion;
 
     @OneToOne
     @JoinColumn(name = "id_dona", nullable = true)

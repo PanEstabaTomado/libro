@@ -1,12 +1,14 @@
 package dfs1103.maq.bibiliotecaam.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +27,9 @@ public class LibroRequestDTO {
 
      @PositiveOrZero(message = "El precio (de tenerlo) debe ser positivo, si no tiene precio: Escriba un 0")
     private BigDecimal precio;
+
+     @NotNull
+     private LocalDate fechaPublicacion;
 
      //El id de donacion
      private Long id_dona;

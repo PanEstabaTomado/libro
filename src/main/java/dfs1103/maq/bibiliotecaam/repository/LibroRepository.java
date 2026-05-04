@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 public interface LibroRepository extends JpaRepository<Libro, Long> {
 
@@ -21,6 +23,9 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
     @Query("SELECT l FROM Libro l WHERE l.donacion.id_dona = :id_dona")
     List<Libro> findByDonacionId(@Param("id_dona") Long id_dona);
 
-    @Query("SELECT l FROM libro l WHERE l.precio <= :presupuesto ORDER BY l.precio DESC")
+    @Query("SELECT l FROM Libro l WHERE l.precio <= :presupuesto ORDER BY l.precio DESC")
     List<Libro> findLibrosPorPrecio(@Param("presupuesto") Integer presupuesto);
+
+    @Query("SELECT l FROM Libro l WHERE l.fechaPublicacion= :fecha ORDER BY l.fechaPublicacion DESC")
+    List<Libro> findLibroPorFecha(@Param("fecha")LocalDate fecha);
 }

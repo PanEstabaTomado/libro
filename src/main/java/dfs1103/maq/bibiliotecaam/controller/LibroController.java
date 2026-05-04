@@ -9,11 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/bibliotecaAM/libros")
+@RequestMapping("api/bibliotecaam/libros")
 @RequiredArgsConstructor
 public class LibroController {
     private final LibroService libroService;
@@ -47,6 +48,11 @@ public class LibroController {
     @GetMapping("/precio/{precio}")
     public ResponseEntity<Optional<List<LibroResponseDTO>>> buscarPorPresupuesto(@RequestParam Integer precio){
         return ResponseEntity.ok(libroService.obtenerPorPrecio(precio));
+    }
+
+    @GetMapping("/fecha/{fecha}")
+    public ResponseEntity<List<LibroResponseDTO>> buscarPorFecha(@RequestParam LocalDate fecha){
+        return ResponseEntity.ok(libroService.buscarPorFecha(fecha));
     }
 
     @PostMapping
