@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +16,6 @@ public class LibroResponseDTO {
     private String titulo;
     private String autor;
     private BigDecimal precio;
-
+    private LocalDate fechaPublicacion;
     private Integer numrun_dona;
 }

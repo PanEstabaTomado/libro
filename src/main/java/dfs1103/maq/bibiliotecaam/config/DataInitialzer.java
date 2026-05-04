@@ -1,5 +1,6 @@
 package dfs1103.maq.bibiliotecaam.config;
 
+import dfs1103.maq.bibiliotecaam.model.Empleado;
 import dfs1103.maq.bibiliotecaam.repository.DonacionRepository;
 import dfs1103.maq.bibiliotecaam.repository.EmpleadoRepository;
 import dfs1103.maq.bibiliotecaam.repository.LibroRepository;
@@ -23,10 +24,24 @@ public class DataInitialzer implements CommandLineRunner {
             log.info(">>> DataInitializer: la BD ya tiene datos, se omite la carga inicial.");
             return;
         }
-        log.info(">>> DataInitializer: BD vacía detectada, insertando datos de prueba...");    }
+        log.info(">>> DataInitializer: BD vacía detectada, insertando datos de prueba...");
+
+        Empleado emp =
+
+
+
+
+
+
+    }
         /*
         * * TO DO
         * COLOCAR LOS DATOS DE EMPLEADO, LIBRO Y DONACION
          */
+
+        // ----------------LIBROS------------------------
+
+
+
 
 }
