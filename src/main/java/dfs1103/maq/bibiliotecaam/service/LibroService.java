@@ -28,13 +28,13 @@ public class LibroService {
      */
     private LibroResponseDTO mapToDOTO(Libro libro){
         return new LibroResponseDTO(
-                libro.getId_libro(),
+                libro.getIdLibro(),
                 libro.getIsbn(),
                 libro.getTitulo(),
                 libro.getAutor(),
                 libro.getPrecio(),
                 libro.getFechaPublicacion(),
-                libro.getDonacion().getNumrun_dona()
+                libro.getDonacion().getNumrunDona()
         );
     }
 
@@ -70,9 +70,9 @@ public class LibroService {
     * * ESTO ES PARA GUARDAR
      */
     public LibroResponseDTO guardar(LibroRequestDTO doto){
-        Donacion donacion = donacionRepository.findById(doto.getId_dona())
+        Donacion donacion = donacionRepository.findById(doto.getIdDona())
                 .orElseThrow(() -> new RuntimeException
-                        ("Donacion no encontrada - El id no existe en la base de datos:´" + doto.getId_dona()));
+                        ("Donacion no encontrada - El id no existe en la base de datos:´" + doto.getIdDona()));
 
         Libro libro = new Libro(
                 null,
@@ -92,9 +92,9 @@ public class LibroService {
     public Optional<LibroResponseDTO> actualizar(Long id, LibroRequestDTO doto){
         return libroRepository.findById(id).map(existente ->
         {
-            Donacion donacion = donacionRepository.findById(doto.getId_dona()).orElseThrow(
+            Donacion donacion = donacionRepository.findById(doto.getIdDona()).orElseThrow(
                     ()->
-                    new RuntimeException("Donacion no encontrada - El id no existe en la base de datos: " + doto.getId_dona()));
+                    new RuntimeException("Donacion no encontrada - El id no existe en la base de datos: " + doto.getIdDona()));
             existente.setIsbn(doto.getIsbn());
             existente.setTitulo(doto.getTitulo());
             existente.setAutor(doto.getAutor());
@@ -146,9 +146,10 @@ public class LibroService {
     /*
     * * ESTO ES PARA BUSCAR POR FECHA
      */
-    public List<LibroResponseDTO> buscarPorFecha(LocalDate fecha){
+    public List<LibroResponseDTO> buscarPorFecha(LocalDate fecha) {
         return libroRepository.findLibroPorFecha(fecha)
                 .stream()
                 .map(this::mapToDOTO)
                 .collect(Collectors.toList());
+    }
 }

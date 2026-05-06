@@ -11,11 +11,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LibroResponseDTO {
-    private Long id_libro;
+    private Long idLibro;
     private String isbn;
     private String titulo;
     private String autor;
     private BigDecimal precio;
     private LocalDate fechaPublicacion;
-    private Integer numrun_dona;
+    private Long numrunDona;
 }

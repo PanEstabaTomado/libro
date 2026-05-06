@@ -17,29 +17,29 @@ public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_emp;
+    private Long idEmp;
 
-    @Column(nullable = false,precision = 8)
-    private Integer numrun_emp;
+    @Column(nullable = false, length = 8, unique = true)
+    private Long numrunEmp;
 
-    @Column(nullable = false, length = 1)
-    private String dvrun_emp;
+    @Column(nullable = false, length = 1, unique = false)
+    private String dvrunEmp;
 
-    @Column(nullable = false, length = 30)
-    private String pnombre_emp;
+    @Column(nullable = false, length = 30, unique = false)
+    private String pnombreEmp;
 
-    @Column(nullable = true, length = 30)
-    private String snombre_emp;
+    @Column(nullable = true, length = 30, unique = false)
+    private String snombreEmp;
 
-    @Column(nullable = false, length = 30)
-    private String appaterno_emp;
+    @Column(nullable = false, length = 30, unique = false)
+    private String appaternoEmp;
 
-    @Column(nullable = false, length = 30)
-    private String apmaterno_emp;
+    @Column(nullable = false, length = 30, unique = false)
+    private String apmaternoEmp;
 
     @Column(nullable = false)
-    private LocalDate fec_contrato;
+    private LocalDate fecContrato;
 
-    @Column(nullable = true, precision = 7)
-    private Integer sueldo;
+    @Column(nullable = false, length = 7, unique = false)
+    private Long sueldo;
 }

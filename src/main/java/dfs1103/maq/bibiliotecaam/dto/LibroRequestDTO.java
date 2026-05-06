@@ -28,10 +28,10 @@ public class LibroRequestDTO {
      @PositiveOrZero(message = "El precio (de tenerlo) debe ser positivo, si no tiene precio: Escriba un 0")
     private BigDecimal precio;
 
-     @NotNull
+     @NotNull(message = "La fecha de publicacion del Libro no puede estar vacia")
      private LocalDate fechaPublicacion;
 
      //El id de donacion
-     private Long id_dona;
+     private Long idDona;
 
 }
