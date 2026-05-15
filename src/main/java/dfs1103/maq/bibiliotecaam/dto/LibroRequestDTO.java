@@ -19,5 +19,5 @@ public class LibroRequestDTO {
     @NotNull(message = "Se debe saber si el libro ha sido prestado o no.")
     private boolean prestado;
     private Long precio;
-    private String idDona;
+    private Long idDona;
 }

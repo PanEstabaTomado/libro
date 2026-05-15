@@ -27,5 +27,5 @@ public class Libro {
     @Column(nullable = true, length = 3)
     private Long precio;
     @Column(nullable = true)
-    private String idDona;
+    private Long idDona;
 }

@@ -18,6 +18,6 @@ public class LibroResponseDTO {
     private String autor;
     private boolean prestado;
     private Long precio;
-    private String idDona;
+    private Long idDona;
 
 }

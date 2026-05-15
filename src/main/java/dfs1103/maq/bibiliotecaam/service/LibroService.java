@@ -63,10 +63,10 @@ public class LibroService {
                 .map(this::mapToDTO);
     }
 
-    public LibroResponseDTO guardar(LibroResponseDTO doto){
-        validarDonacion(doto.getIdLibro());
+    public LibroResponseDTO guardar(LibroRequestDTO doto){
+        validarDonacion(doto.getIdDona());
         Libro libro = new Libro(
-                doto.getIdLibro(),
+                null,
                 doto.getIsbn(),
                 doto.getTitulo(),
                 doto.getAutor(),
