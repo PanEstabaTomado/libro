@@ -1,5 +1,6 @@
 package dfs1103.maq.bibiliotecaam.service;
 
+import dfs1103.maq.bibiliotecaam.dto.LibroRequestDTO;
 import dfs1103.maq.bibiliotecaam.dto.LibroResponseDTO;
 import dfs1103.maq.bibiliotecaam.model.Libro;
 import dfs1103.maq.bibiliotecaam.repository.LibroRepository;
@@ -8,6 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -46,5 +51,46 @@ public class LibroService {
         }
     }
 
+    public List<LibroResponseDTO> obtenerTodos(){
+        return libroRepository.findAll()
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<LibroResponseDTO> obtenerPorId(Long id){
+        return libroRepository.findById(id)
+                .map(this::mapToDTO);
+    }
+
+    public LibroResponseDTO guardar(LibroResponseDTO doto){
+        validarDonacion(doto.getIdLibro());
+        Libro libro = new Libro(
+                doto.getIdLibro(),
+                doto.getIsbn(),
+                doto.getTitulo(),
+                doto.getAutor(),
+                doto.isPrestado(),
+                doto.getPrecio(),
+                doto.getIdDona()
+        );
+        return mapToDTO(libroRepository.save(libro));
+    }
+
+    public Optional<LibroResponseDTO> actualizar(Long id, LibroRequestDTO doto){
+        return libroRepository.findById(id).map(existente -> {
+            existente.setIsbn(doto.getIsbn());
+            existente.setTitulo(doto.getTitulo());
+            existente.setAutor(doto.getAutor());
+            existente.setPrestado(doto.isPrestado());
+            existente.setPrecio(doto.getPrecio());
+            existente.setIdDona(doto.getIdDona());
+            return mapToDTO(libroRepository.save(existente));
+        });
+    }
+
+    public void eliminar(Long id){
+        libroRepository.deleteById(id);
+    }
 
 }
