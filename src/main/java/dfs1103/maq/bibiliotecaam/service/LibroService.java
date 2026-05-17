@@ -22,18 +22,29 @@ public class LibroService {
     private final WebClient webClient;
 
     private LibroResponseDTO mapToDTO(Libro libro){
+        String prestado;
+        if (libro.getPrestado().equals(true)){
+            prestado = "Libro Prestado.";
+        } else {
+            prestado = "Libro no Prestado.";
+        }
         return new LibroResponseDTO(
                 libro.getIdLibro(),
                 libro.getIsbn(),
                 libro.getTitulo(),
                 libro.getAutor(),
-                libro.isPrestado(),
+                prestado,
                 libro.getPrecio(),
                 libro.getIdDona()
         );
+
+
     }
 
     private void validarDonacion(Long idDona){
+        if (idDona == null){
+            return;
+        }
         try{
             webClient.get()
                     .uri("/api/bibliotecaam/donacion/{id}", idDona)
@@ -46,7 +57,7 @@ public class LibroService {
                         "La donacion con id "+ idDona + " no existe en la BD Donacion.");
         } catch (Exception e) {
             throw new RuntimeException(
-                    "No se puede conectar con usuario: " + e.getMessage());
+                    "No se puede conectar con donacion: " + e.getMessage());
 
         }
     }
@@ -70,7 +81,7 @@ public class LibroService {
                 doto.getIsbn(),
                 doto.getTitulo(),
                 doto.getAutor(),
-                doto.isPrestado(),
+                doto.getPrestado(),
                 doto.getPrecio(),
                 doto.getIdDona()
         );
@@ -79,10 +90,11 @@ public class LibroService {
 
     public Optional<LibroResponseDTO> actualizar(Long id, LibroRequestDTO doto){
         return libroRepository.findById(id).map(existente -> {
+            validarDonacion(doto.getIdDona());
             existente.setIsbn(doto.getIsbn());
             existente.setTitulo(doto.getTitulo());
             existente.setAutor(doto.getAutor());
-            existente.setPrestado(doto.isPrestado());
+            existente.setPrestado(doto.getPrestado());
             existente.setPrecio(doto.getPrecio());
             existente.setIdDona(doto.getIdDona());
             return mapToDTO(libroRepository.save(existente));
@@ -90,7 +102,48 @@ public class LibroService {
     }
 
     public void eliminar(Long id){
+
         libroRepository.deleteById(id);
+    }
+
+    /*
+    ----------------------------------- FUNCIONES EXTRAS
+     */
+
+
+    public List<LibroResponseDTO> obtenerPorIsbn(String isbn){
+        return libroRepository.findByIsbn(isbn)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<LibroResponseDTO> obtenerPorTitulo(String titulo){
+        return libroRepository.findByTitulo(titulo)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<LibroResponseDTO> obtenerPorAutor(String autor){
+        return libroRepository.findByAutor(autor)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<LibroResponseDTO> obtenerPorPrecioMenorQue(Long precio){
+        return libroRepository.findByPrecio(precio)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<LibroResponseDTO> obtenerPorPrestado(){
+        return libroRepository.findByPrestado()
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
 }

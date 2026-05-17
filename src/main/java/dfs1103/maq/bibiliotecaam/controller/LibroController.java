@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/bibliotecaam")
+@RequestMapping("/api/bibliotecaam/libro")
 @RequiredArgsConstructor
 public class LibroController {
     private final LibroService libroService;
@@ -23,11 +23,31 @@ public class LibroController {
         return ResponseEntity.ok(libroService.obtenerTodos());
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<LibroResponseDTO> obtenerPorId(@PathVariable Long id){
         return libroService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/isbn/{isbn}")
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorISBN(String isbn){
+        return ResponseEntity.ok(libroService.obtenerPorIsbn(isbn));
+    }
+
+    @GetMapping("/titulo/{titulo}")
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorTitulo(String titulo){
+        return ResponseEntity.ok(libroService.obtenerPorTitulo(titulo));
+    }
+
+    @GetMapping("/autor/{autor}")
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorPrecio(Long precio){
+        return ResponseEntity.ok(libroService.obtenerPorPrecioMenorQue(precio));
+    }
+
+    @GetMapping("/prestado")
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPrestados(){
+        return ResponseEntity.ok(libroService.obtenerPorPrestado());
     }
 
     @PostMapping

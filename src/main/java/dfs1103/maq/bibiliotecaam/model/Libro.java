@@ -23,7 +23,7 @@ public class Libro {
     @Column(nullable = false, length = 40)
     private String autor;
     @Column(nullable = false)
-    private boolean prestado;
+    private Boolean prestado;
     @Column(nullable = true, length = 3)
     private Long precio;
     @Column(nullable = true)

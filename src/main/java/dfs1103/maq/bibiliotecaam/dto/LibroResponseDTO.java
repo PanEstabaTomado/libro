@@ -16,7 +16,7 @@ public class LibroResponseDTO {
     private String isbn;
     private String titulo;
     private String autor;
-    private boolean prestado;
+    private String prestado;
     private Long precio;
     private Long idDona;
 

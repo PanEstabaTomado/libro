@@ -31,7 +31,7 @@ public class DataIntializer implements CommandLineRunner {
         );
 
         libroRepository.save(
-                new Libro(null, "asd987as", "El Arbol del conocimiento", "Maturana y Varela", true, 12000L, null )
+                new Libro(null, "asd987as", "El Arbol del conocimiento", "Maturana y Varela", true, 12000L, 1L )
         );
     }
 }
