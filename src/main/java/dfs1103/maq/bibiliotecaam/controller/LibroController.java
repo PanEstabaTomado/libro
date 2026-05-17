@@ -41,6 +41,11 @@ public class LibroController {
     }
 
     @GetMapping("/autor/{autor}")
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorAutor(String autor) {
+        return ResponseEntity.ok(libroService.obtenerPorAutor(autor));
+    }
+
+    @GetMapping("/precio/{precio}")
     public ResponseEntity<List<LibroResponseDTO>> obtenerPorPrecio(Long precio){
         return ResponseEntity.ok(libroService.obtenerPorPrecioMenorQue(precio));
     }
