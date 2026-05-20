@@ -5,10 +5,12 @@ import dfs1103.maq.bibiliotecaam.dto.LibroResponseDTO;
 import dfs1103.maq.bibiliotecaam.service.LibroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,16 +70,16 @@ public class LibroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id){
+    public ResponseEntity<Map<String,String>> eliminar(@PathVariable Long id){
         if (libroService.obtenerPorId(id).isEmpty()){
-            Map<String, String> noEncontrado = new HashMap<>();
-            noEncontrado.put("ERROR: ", "¡El libro con el id "+ id +" no fue encontrado!");
-            return ResponseEntity.status(404).body(noEncontrado);
+            Map<String, String> borrado = new LinkedHashMap<>();
+            borrado.put("¡ERROR! ", "¡El libro con id "+id+" no fue encontrado!");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(borrado);
+        }else {
+            libroService.eliminar(id);
+            Map<String, String> borrado = new LinkedHashMap<>();
+            borrado.put("¡EXITO! ", "¡El libro fue eliminado con exito!");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(borrado);
         }
-
-        libroService.eliminar(id);
-        Map<String, String> eliminado = new HashMap<>();
-        eliminado.put("¡Exito! ", " ¡El libro fue eliminado con exito!");
-        return ResponseEntity.ok(eliminado);
     }
 }
