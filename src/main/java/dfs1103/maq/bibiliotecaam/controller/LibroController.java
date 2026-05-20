@@ -31,22 +31,22 @@ public class LibroController {
     }
 
     @GetMapping("/isbn/{isbn}")
-    public ResponseEntity<List<LibroResponseDTO>> obtenerPorISBN(String isbn){
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorISBN(@PathVariable String isbn){
         return ResponseEntity.ok(libroService.obtenerPorIsbn(isbn));
     }
 
     @GetMapping("/titulo/{titulo}")
-    public ResponseEntity<List<LibroResponseDTO>> obtenerPorTitulo(String titulo){
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorTitulo(@PathVariable String titulo){
         return ResponseEntity.ok(libroService.obtenerPorTitulo(titulo));
     }
 
     @GetMapping("/autor/{autor}")
-    public ResponseEntity<List<LibroResponseDTO>> obtenerPorAutor(String autor) {
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorAutor(@PathVariable String autor) {
         return ResponseEntity.ok(libroService.obtenerPorAutor(autor));
     }
 
     @GetMapping("/precio/{precio}")
-    public ResponseEntity<List<LibroResponseDTO>> obtenerPorPrecio(Integer precio){
+    public ResponseEntity<List<LibroResponseDTO>> obtenerPorPrecio(@PathVariable Integer precio){
         return ResponseEntity.ok(libroService.obtenerPorPrecioMenorQue(precio));
     }
 
