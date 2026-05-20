@@ -20,7 +20,7 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
     @Query("SELECT l FROM Libro l WHERE UPPER(l.autor) LIKE UPPER(:autor)")
     List<Libro> findByAutor(@Param("autor") String autor);
 
-    @Query("SELECT l FROM LIBRO l WHERE l.precio <= :precio ORDER BY l.precio")
+    @Query("SELECT l FROM Libro l WHERE l.precio <= :precio ORDER BY l.precio")
     List<Libro> findByPrecio(@Param("precio") Long precio);
 
     @Query("SELECT l FROM Libro l WHERE l.prestado = true ORDER BY l.isbn")
