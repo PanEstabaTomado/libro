@@ -23,15 +23,15 @@ public class DataIntializer implements CommandLineRunner {
         log.info(">>> Data Initializer: BD vacía detectada, insertando datos de prueba.");
 
         libroRepository.save(
-                new Libro(null, "12389412", "Tractatus Logico-Philosophicus", "Wittgenstein", true, 35000L, null )
+                new Libro(null, "12389412", "Tractatus Logico-Philosophicus", "Wittgenstein", true, 35000, null )
         );
 
         libroRepository.save(
-                new Libro(null, "987q654", "Teoria de los tres cuerpos", "Cixin Liu", true, 250000L, null )
+                new Libro(null, "987q654", "Teoria de los tres cuerpos", "Cixin Liu", true, 25000, null )
         );
 
         libroRepository.save(
-                new Libro(null, "asd987as", "El Arbol del conocimiento", "Maturana y Varela", true, 12000L, 1L )
+                new Libro(null, "asd987as", "El Arbol del conocimiento", "Maturana y Varela", true, 12000, 1L )
         );
     }
 }

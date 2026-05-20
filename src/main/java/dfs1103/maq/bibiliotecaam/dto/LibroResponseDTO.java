@@ -17,7 +17,7 @@ public class LibroResponseDTO {
     private String titulo;
     private String autor;
     private String prestado;
-    private Long precio;
+    private Integer precio;
     private Long idDona;
 
 }

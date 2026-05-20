@@ -24,7 +24,7 @@ public class LibroService {
 
     private LibroResponseDTO mapToDTO(Libro libro){
         String prestado;
-        if (libro.getPrestado().equals(true)){
+        if (Boolean.TRUE.equals(libro.getPrestado())){
             prestado = "Libro Prestado.";
         } else {
             prestado = "Libro no Prestado.";
@@ -38,8 +38,6 @@ public class LibroService {
                 libro.getPrecio(),
                 libro.getIdDona()
         );
-
-
     }
 
     private void validarDonacion(Long idDona){
@@ -133,7 +131,7 @@ public class LibroService {
                 .collect(Collectors.toList());
     }
 
-    public List<LibroResponseDTO> obtenerPorPrecioMenorQue(Long precio){
+    public List<LibroResponseDTO> obtenerPorPrecioMenorQue(Integer precio){
         return libroRepository.findByPrecio(precio)
                 .stream()
                 .map(this::mapToDTO)

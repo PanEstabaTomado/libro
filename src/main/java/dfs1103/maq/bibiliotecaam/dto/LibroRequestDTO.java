@@ -18,6 +18,6 @@ public class LibroRequestDTO {
     private String autor;
     @NotNull(message = "Se debe saber si el libro ha sido prestado o no.")
     private Boolean prestado;
-    private Long precio;
+    private Integer precio;
     private Long idDona;
 }
