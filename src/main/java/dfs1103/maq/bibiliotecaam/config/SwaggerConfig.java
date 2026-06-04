@@ -13,6 +13,6 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info().title("API 2026 Libros de la Biblioteca AM")
                         .version("1.0")
-                        .description("Dcoumentacion de la API para el sistema de libros de la Biblioteca AM"));
+                        .description("Documentacion de la API para el sistema de libros de la Biblioteca AM"));
     }
 }
