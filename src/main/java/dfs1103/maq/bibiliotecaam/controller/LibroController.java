@@ -5,6 +5,7 @@ import dfs1103.maq.bibiliotecaam.dto.LibroResponseDTO;
 import dfs1103.maq.bibiliotecaam.model.Libro;
 import dfs1103.maq.bibiliotecaam.service.LibroService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,6 +30,7 @@ public class LibroController {
     private final LibroService libroService;
 
     @GetMapping
+    @ArraySchema(schema = @Schema(implementation = Libro.class))
     @Operation(summary = "Obtener los datos de todos los libros.", description = "Esta opcion retornara los datos de todos los libros en la Base de Datos.")
     public ResponseEntity<List<LibroResponseDTO>> obtenerTodos(){
         return ResponseEntity.ok(libroService.obtenerTodos());
@@ -47,37 +49,60 @@ public class LibroController {
     }
 
     @GetMapping("/isbn/{isbn}")
+    @ArraySchema(schema = @Schema(implementation = Libro.class))
     @Operation(summary = "Obtener los datos por el ISBN del Libro", description = "Se retornara el libro que coincida con el ISBN ingresado.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "¡Libro encontrado con exito!"),
-            @ApiResponse(responseCode = "404",description = "ERROR: ¡El id del libro ingresado no existe!")
-    })
     public ResponseEntity<List<LibroResponseDTO>> obtenerPorISBN(@PathVariable String isbn){
         return ResponseEntity.ok(libroService.obtenerPorIsbn(isbn));
     }
 
     @GetMapping("/titulo/{titulo}")
+    @ArraySchema(schema = @Schema(implementation = Libro.class))
+    @Operation(summary = "Obtener los datos por el titulo del Libro", description = "Se retornara el libro que coincida con el titulo ingresado.")
     public ResponseEntity<List<LibroResponseDTO>> obtenerPorTitulo(@PathVariable String titulo){
         return ResponseEntity.ok(libroService.obtenerPorTitulo(titulo));
     }
 
     @GetMapping("/autor/{autor}")
+    @ArraySchema(schema = @Schema(implementation = Libro.class))
+    @Operation(summary = "Obtener los datos por el autor del Libro", description = "Se retornara el libro que coincida con el autor ingresado.")
     public ResponseEntity<List<LibroResponseDTO>> obtenerPorAutor(@PathVariable String autor) {
         return ResponseEntity.ok(libroService.obtenerPorAutor(autor));
     }
 
     @GetMapping("/precio/{precio}")
+    @ArraySchema(schema = @Schema(implementation = Libro.class))
+    @Operation(summary = "Obtener los datos por los precios de los Libros", description = "Se retornaran los libros que coincidan con el precio ingresado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "¡Libro encontrado con exito!",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Libro.class))),
+            @ApiResponse(responseCode = "404",description = "ERROR: ¡El autor ingresado no existe! (Revise si lo ha escrito bien <3)")
+    })
     public ResponseEntity<List<LibroResponseDTO>> obtenerPorPrecio(@PathVariable Integer precio){
         return ResponseEntity.ok(libroService.obtenerPorPrecioMenorQue(precio));
     }
 
     @GetMapping("/prestado")
+    @ArraySchema(schema = @Schema(implementation = Libro.class))
+    @Operation(summary = "Obtener los datos por los Libros que estan prestados", description = "Se retornaran los libros que hayan sido prestados actualmente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "¡Libro encontrado con exito!",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Libro.class))),
+            @ApiResponse(responseCode = "404",description = "ERROR: ¡El autor ingresado no existe! (Revise si lo ha escrito bien <3)")
+    })
     public ResponseEntity<List<LibroResponseDTO>> obtenerPrestados(){
         return ResponseEntity.ok(libroService.obtenerPorPrestado());
     }
 
     @PostMapping
     @Operation(summary = "Crear un nuevo libro en la Base de Datos", description = "Se creara y guardaran los datos de un nuevo libro creado en la Base de Datos.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "¡Libro actualizado con exito!",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Libro.class))),
+            @ApiResponse(responseCode = "400",description = "Puede que no se este comunicando con la tabla Donacion/Faltan parametros.")
+    })
     public ResponseEntity<LibroResponseDTO> guardar(@Valid @RequestBody LibroRequestDTO doto){
         return ResponseEntity.status(201).body(libroService.guardar(doto));
     }
