@@ -21,7 +21,8 @@ public class DataLoader implements CommandLineRunner {
         for (int i = 0; i < 6; i++) {
             Libro libro = new Libro();
             libro.setIsbn(faker.code().isbn10());
-            libro.setTitulo(faker.lorem().sentence());
+            String titulo = faker.lorem().sentence();
+            libro.setTitulo(titulo.length() > 40 ? titulo.substring(0,40) : titulo);
             libro.setAutor(faker.name().fullName());
             libro.setPrestado(faker.bool().bool());
             libro.setPrecio(faker.number().numberBetween(5000,99999));
