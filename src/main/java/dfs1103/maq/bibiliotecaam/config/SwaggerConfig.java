@@ -19,7 +19,7 @@ public class SwaggerConfig {
                 .scheme("bearer")
                 .bearerFormat("JWT");
         SecurityRequirement securityRequirement = new SecurityRequirement()
-                .addList("BearerAuth");
+                .addList("bearerAuth");
         return new OpenAPI()
                 .info(new Info().title("API 2026 Libros de la Biblioteca AM")
                         .version("1.0")
